@@ -73,7 +73,7 @@
       <div class="brand-badge">М</div>
       <div>
         <h1>Мой маршрут · Мосгортранс</h1>
-        <p id="headerSubtitle">Макеев Н. П. · Таб. № 16026562 · Филиал «Южный» а/к № 2</p>
+        <p id="headerSubtitle">Профиль водителя · Заполните данные локально</p>
       </div>
     </div>
     <a class="sos-pill" href="tel:6500">SOS / СЦ: 6500</a>
@@ -95,16 +95,16 @@
       <div class="card"><div class="kpi-label">Контроль РТО (5 проверок)</div><div class="kpi-value" id="kpiRtoStatus">Нет данных</div><div class="kpi-sub" id="kpiRtoSub">Добавьте смены или загрузите пример</div></div>
     </div>
     <div class="card">
-      <h2>Карточка водителя</h2>
+      <h2>Карточка водителя (хранится только на вашем устройстве)</h2>
       <div class="form-grid">
-        <div><label>ФИО водителя</label><input id="profName" /></div>
-        <div><label>Табельный №</label><input id="profTab" /></div>
-        <div><label>Филиал / Площадка</label><input id="profBranch" /></div>
-        <div><label>Автоколонна</label><input id="profCol" /></div>
-        <div><label>Директор филиала</label><input id="profDirector" /></div>
-        <div><label>Начальник автоколонны</label><input id="profColHead" /></div>
-        <div><label>Модель ТС / Бортовой №</label><input id="profBus" /></div>
-        <div><label>Основной маршрут</label><input id="profRoute" /></div>
+        <div><label>ФИО водителя</label><input id="profName" placeholder="Иванов Иван Иванович" /></div>
+        <div><label>Табельный №</label><input id="profTab" placeholder="12345678" /></div>
+        <div><label>Филиал / Площадка</label><input id="profBranch" placeholder="Филиал ГУП «Мосгортранс»" /></div>
+        <div><label>Автоколонна</label><input id="profCol" placeholder="Автоколонна № ..." /></div>
+        <div><label>Директор филиала</label><input id="profDirector" placeholder="Фамилия И. О." /></div>
+        <div><label>Начальник автоколонны</label><input id="profColHead" placeholder="Фамилия И. О." /></div>
+        <div><label>Модель ТС / Бортовой №</label><input id="profBus" placeholder="ЛиАЗ-621365 · борт № ..." /></div>
+        <div><label>Основной маршрут</label><input id="profRoute" placeholder="м86" /></div>
         <div><label>Базовая ставка (руб./ч)</label><input id="profRate" type="number" step="0.01" /></div>
         <div><label>Стаж в МГТ (надбавка)</label><select id="profExp"><option value="0">До 1 года (0%)</option><option value="0.10">От 1 до 5 лет (10%)</option><option value="0.15">От 5 до 10 лет (15%)</option><option value="0.20">Свыше 10 лет (20%)</option></select></div>
         <div><label>Рейтинг качества (баллы)</label><input id="profRating" type="number" min="0" max="100" /></div>
@@ -117,7 +117,7 @@
     </div>
     <div class="grid">
       <div class="card"><h3>Чек-лист выхода на линию (ДИ № 144 и Приказ № 1024)</h3><div id="checklistBox"></div><div class="btn-row"><button class="btn btn-secondary" onclick="resetChecklist()">Сбросить отметки</button></div></div>
-      <div class="card"><h3>Оперативные контакты и системы</h3><p style="font-size:13px;margin:0 0 8px;"><strong>Ситуационный центр:</strong> <a class="doc-link" href="tel:6500">6500</a> или <a class="doc-link" href="tel:+74959512023">8 (495) 951-20-23</a></p><p style="font-size:13px;margin:0 0 8px;"><strong>Приёмная / кадры филиала «Южный»:</strong> <a class="doc-link" href="mailto:sekretar.yug@mosgortrans.ru">sekretar.yug@mosgortrans.ru</a></p><p style="font-size:13px;margin:0 0 8px;"><strong>При себе на линии (п. 1.10 ДИ № 144):</strong> ВУ, СТС, карта тахографа, копия ОСАГО, бумажный ПЛ или ЭПЛ (динамический QR-код), расписание.</p><p style="font-size:13px;margin:0;"><strong>1-й км (п. 4.4.1, ред. № 1024):</strong> рулевое, стояночный тормоз, зарядка АКБ, спидометр, отсутствие стуков.</p></div>
+      <div class="card"><h3>Оперативные контакты и системы</h3><p style="font-size:13px;margin:0 0 8px;"><strong>Ситуационный центр:</strong> <a class="doc-link" href="tel:6500">6500</a> или <a class="doc-link" href="tel:+74959512023">8 (495) 951-20-23</a></p><p style="font-size:13px;margin:0 0 8px;"><strong>При себе на линии (п. 1.10 ДИ № 144):</strong> ВУ, СТС, карта тахографа, копия ОСАГО, бумажный ПЛ или ЭПЛ (динамический QR-код), расписание.</p><p style="font-size:13px;margin:0;"><strong>1-й км (п. 4.4.1, ред. № 1024):</strong> рулевое, стояночный тормоз, зарядка АКБ, спидометр, отсутствие стуков.</p></div>
     </div>
   </section>
   <section id="sec-shifts" class="section">
@@ -172,8 +172,8 @@
       <div class="form-grid">
         <div><label>Шаблон</label><select id="tplType" onchange="buildTemplate()"><option value="explain">Объяснительная по рапорту / штрафу ГИБДД</option><option value="request2027">Запрос документов 2027 (ст. 62 ТК РФ + № 1254)</option><option value="tacho">Заявление на компенсацию карты тахографа (№ 19)</option></select></div>
         <div><label>Дата</label><input id="tplDate" type="date" onchange="buildTemplate()" /></div>
-        <div><label>№ рапорта / постановления</label><input id="tplRaport" placeholder="000844823 от 02.10.2026" oninput="buildTemplate()" /></div>
-        <div><label>Пояснение / видеоматериал</label><input id="tplNote" placeholder="Просмотрено с автобуса № 160294; с рапортом не согласен" oninput="buildTemplate()" /></div>
+        <div><label>№ рапорта / постановления</label><input id="tplRaport" placeholder="№ ... от ..." oninput="buildTemplate()" /></div>
+        <div><label>Пояснение / видеоматериал</label><input id="tplNote" placeholder="Видеоматериал просмотрен; с рапортом не согласен" oninput="buildTemplate()" /></div>
       </div>
       <div style="margin-top:10px;"><label>Готовый текст</label><textarea id="tplOutput"></textarea></div>
       <div class="btn-row"><button class="btn" onclick="copyTemplate()">Копировать</button><button class="btn btn-secondary" onclick="downloadTemplateTxt()">Скачать .txt</button><button class="btn btn-secondary" onclick="window.print()">Печать / PDF</button></div>
@@ -239,7 +239,7 @@ const CHECKLIST_ITEMS = [
   "Проверены валидаторы (УКПБ), медиапанель, кнопка «ТРЕВОГА» и ОМФСВ"
 ];
 const DEFAULT_STATE = {
-  profile: { name: "Макеев Николай Петрович", tab: "16026562", branch: "Филиал «Южный» ГУП «Мосгортранс»", col: "Автоколонна № 2", director: "Р. В. Тимонин", colHead: "Р. И. Ахмедов", bus: "ЛиАЗ-621365 · борт № 160294 (РК11877)", route: "м86", rate: 502.08, exp: 0.10, rating: 100, union: 1 },
+  profile: { name: "", tab: "", branch: "ГУП «Мосгортранс»", col: "", director: "", colHead: "", bus: "", route: "", rate: 502.08, exp: 0.10, rating: 100, union: 1 },
   shifts: [], checklist: [false, false, false, false, false]
 };
 let state = loadState();
@@ -261,7 +261,7 @@ function initProfileUI() {
   document.getElementById("profBus").value = p.bus; document.getElementById("profRoute").value = p.route;
   document.getElementById("profRate").value = p.rate; document.getElementById("profExp").value = String(p.exp);
   document.getElementById("profRating").value = p.rating; document.getElementById("profUnion").value = String(p.union);
-  document.getElementById("headerSubtitle").textContent = `${p.name} · Таб. № ${p.tab} · ${p.col}`;
+  document.getElementById("headerSubtitle").textContent = p.name ? `${p.name}${p.tab ? " · Таб. № " + p.tab : ""}${p.col ? " · " + p.col : ""}` : "Профиль водителя · Заполните данные локально";
 }
 function saveProfile() {
   state.profile = { name: document.getElementById("profName").value.trim(), tab: document.getElementById("profTab").value.trim(), branch: document.getElementById("profBranch").value.trim(), col: document.getElementById("profCol").value.trim(), director: document.getElementById("profDirector").value.trim(), colHead: document.getElementById("profColHead").value.trim(), bus: document.getElementById("profBus").value.trim(), route: document.getElementById("profRoute").value.trim(), rate: parseFloat(document.getElementById("profRate").value) || 502.08, exp: parseFloat(document.getElementById("profExp").value) || 0, rating: parseFloat(document.getElementById("profRating").value) || 0, union: parseInt(document.getElementById("profUnion").value, 10) || 0 };
@@ -333,7 +333,8 @@ function toggleCheck(idx, val) { state.checklist[idx] = val; persist(); }
 function resetChecklist() { state.checklist = CHECKLIST_ITEMS.map(() => false); persist(); renderChecklist(); }
 function buildTemplate() {
   const t = document.getElementById("tplType").value, d = document.getElementById("tplDate").value || new Date().toISOString().slice(0,10), rap = document.getElementById("tplRaport").value.trim() || "№ _________", note = document.getElementById("tplNote").value.trim() || "Видеоматериал просмотрен; с рапортом не согласен", p = state.profile;
-  document.getElementById("tplOutput").value = t === "explain" ? `Директору ${p.branch} ${p.director}\nОт водителя ${p.col} ${p.name}, Таб. № ${p.tab}\n\nОБЪЯСНИТЕЛЬНАЯ\n\n${d} я работал(а) на автобусе (${p.bus}) по маршруту № ${p.route}.\nПо существу обращения / рапорта ${rap} поясняю следующее:\n${note}.\n\nДата: ${d}\nПодпись: ____________ / ${p.name}` : t === "request2027" ? `Руководству ${p.branch}\nОт водителя ${p.col} ${p.name}, Таб. № ${p.tab}\n\nЗАЯВЛЕНИЕ О ПРЕДОСТАВЛЕНИИ ДОКУМЕНТОВ (ст. 62 ТК РФ)\n\nПрошу предоставить для проверки режима рабочего времени и графика сменности на 2027 год (Приказ № 1254 от 03.11.2026):\n1. Код режима, трудовой договор, доп. соглашения.\n2. Именной график на 2027 год и дату доведения.\n3. Маршрутные расписания, табели, путевые листы, ГЛОНАСС, медосмотры.\n4. ПВТР, Коллективный договор и документы об оплате труда на 2027 год.\n\nДата: ${d}\nПодпись: ____________ / ${p.name}` : `Директору ${p.branch} ${p.director}\nОт водителя ${p.col} ${p.name}, Таб. № ${p.tab}\n\nЗАЯВЛЕНИЕ\n\nНа основании Приказа № 19 от 15.01.2026 прошу компенсировать затраты на карту водителя для тахографа (до 5 000 руб.).\n\nДата: ${d}\nПодпись: ____________ / ${p.name}`;
+  const fn = p.name || "____________________", tb = p.tab || "________", br = p.branch || "ГУП «Мосгортранс»", cl = p.col || "а/к № ___", dr = p.director || "________________", bs = p.bus || "____________", rt = p.route || "____";
+  document.getElementById("tplOutput").value = t === "explain" ? `Директору ${br} ${dr}\nОт водителя ${cl} ${fn}, Таб. № ${tb}\n\nОБЪЯСНИТЕЛЬНАЯ\n\n${d} я работал(а) на автобусе (${bs}) по маршруту № ${rt}.\nПо существу обращения / рапорта ${rap} поясняю следующее:\n${note}.\n\nДата: ${d}\nПодпись: ____________ / ${fn}` : t === "request2027" ? `Руководству ${br}\nОт водителя ${cl} ${fn}, Таб. № ${tb}\n\nЗАЯВЛЕНИЕ О ПРЕДОСТАВЛЕНИИ ДОКУМЕНТОВ (ст. 62 ТК РФ)\n\nПрошу предоставить для проверки режима рабочего времени и графика сменности на 2027 год (Приказ № 1254 от 03.11.2026):\n1. Код режима, трудовой договор, доп. соглашения.\n2. Именной график на 2027 год и дату доведения.\n3. Маршрутные расписания, табели, путевые листы, ГЛОНАСС, медосмотры.\n4. ПВТР, Коллективный договор и документы об оплате труда на 2027 год.\n\nДата: ${d}\nПодпись: ____________ / ${fn}` : `Директору ${br} ${dr}\nОт водителя ${cl} ${fn}, Таб. № ${tb}\n\nЗАЯВЛЕНИЕ\n\nНа основании Приказа № 19 от 15.01.2026 прошу компенсировать затраты на карту водителя для тахографа (до 5 000 руб.).\n\nДата: ${d}\nПодпись: ____________ / ${fn}`;
 }
 function copyTemplate() { const el = document.getElementById("tplOutput"); el.select(); navigator.clipboard?.writeText(el.value); alert("Скопировано"); }
 function downloadTemplateTxt() { const blob = new Blob([document.getElementById("tplOutput").value], { type: "text/plain;charset=utf-8" }); const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "mosgortrans_document.txt"; a.click(); }
