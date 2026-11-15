@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#005bb5" />
+  <title>Мой маршрут — Кабинет водителя ГУП «Мосгортранс»</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <style>
+    :root {
+      --bg: #f3f6fa; --surface: #ffffff; --surface-2: #eef3f9;
+      --primary: #005bb5; --primary-dark: #00448a; --accent: #00a86b;
+      --danger: #d93025; --warning: #e37400; --text: #1a2433;
+      --muted: #5c6b7f; --border: #dce4ef; --radius: 12px;
+      --shadow: 0 2px 10px rgba(15, 35, 65, 0.06);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.45; padding-bottom: 76px; }
+    header { background: linear-gradient(135deg, #004c99 0%, #0066cc 100%); color: #fff; padding: 14px 16px; position: sticky; top: 0; z-index: 50; box-shadow: 0 2px 12px rgba(0, 50, 110, 0.22); }
+    .header-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; max-width: 1120px; margin: 0 auto; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-badge { width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; }
+    .brand h1 { margin: 0; font-size: 16px; font-weight: 700; }
+    .brand p { margin: 0; font-size: 12px; opacity: 0.88; }
+    .sos-pill { background: var(--danger); color: #fff; text-decoration: none; padding: 7px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+    main { max-width: 1120px; margin: 16px auto; padding: 0 12px; }
+    .nav-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 14px; scrollbar-width: none; }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn { border: 1px solid var(--border); background: var(--surface); color: var(--muted); padding: 9px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .section { display: none; }
+    .section.active { display: block; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 14px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); margin-bottom: 12px; }
+    .card h2, .card h3 { margin: 0 0 10px; font-size: 16px; }
+    .kpi-label { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+    .kpi-value { font-size: 22px; font-weight: 800; color: var(--primary); }
+    .kpi-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .kpi-ok { color: var(--accent); } .kpi-warn { color: var(--warning); } .kpi-bad { color: var(--danger); }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+    label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+    input, select, textarea { width: 100%; padding: 9px 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; font-family: inherit; background: #fff; color: var(--text); }
+    textarea { min-height: 160px; resize: vertical; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    button.btn { border: none; border-radius: 8px; padding: 10px 14px; font-size: 13px; font-weight: 600; cursor: pointer; background: var(--primary); color: #fff; }
+    button.btn-secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    button.btn-danger { background: #fdecec; color: var(--danger); border: 1px solid #f7c7c4; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--surface-2); font-size: 12px; color: var(--muted); white-space: nowrap; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .b-crit { background: #fdecec; color: var(--danger); } .b-high { background: #fff3e0; color: var(--warning); }
+    .b-med { background: #e8f1fc; color: var(--primary); } .b-low { background: #eef2f6; color: var(--muted); }
+    .alert { padding: 10px 12px; border-radius: 8px; font-size: 13px; margin-bottom: 10px; border-left: 4px solid var(--primary); background: var(--surface-2); }
+    .alert-danger { border-left-color: var(--danger); background: #fdecec; color: #7f1d1d; }
+    .alert-warn { border-left-color: var(--warning); background: #fff6e5; color: #7c4000; }
+    .alert-ok { border-left-color: var(--accent); background: #e8f8f1; color: #065f46; }
+    .checklist-item { display: flex; align-items: flex-start; gap: 8px; padding: 7px 0; border-bottom: 1px dashed var(--border); font-size: 13px; }
+    .checklist-item input { width: auto; margin-top: 3px; }
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 6px 4px; z-index: 60; }
+    .bottom-nav button { background: none; border: none; font-size: 11px; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; padding: 4px 6px; }
+    .bottom-nav button.active { color: var(--primary); font-weight: 700; }
+    .doc-link { color: var(--primary); text-decoration: none; font-weight: 600; }
+    @media print { header, .nav-tabs, .bottom-nav, .no-print { display: none !important; } body { padding: 0; background: #fff; } .card { box-shadow: none; border: none; } }
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-top">
+    <div class="brand">
+      <div class="brand-badge">М</div>
+      <div>
+        <h1>Мой маршрут · Мосгортранс</h1>
+        <p id="headerSubtitle">Макеев Н. П. · Таб. № 16026562 · Филиал «Южный» а/к № 2</p>
+      </div>
+    </div>
+    <a class="sos-pill" href="tel:6500">SOS / СЦ: 6500</a>
+  </div>
+</header>
+<main>
+  <div class="nav-tabs no-print">
+    <button class="tab-btn active" onclick="switchTab('overview', this)">Обзор</button>
+    <button class="tab-btn" onclick="switchTab('shifts', this)">Смены и РТО</button>
+    <button class="tab-btn" onclick="switchTab('salary', this)">Калькулятор ЗП</button>
+    <button class="tab-btn" onclick="switchTab('docs', this)">Приказы и ДИ (32)</button>
+    <button class="tab-btn" onclick="switchTab('forms', this)">Заявления и Объяснительные</button>
+    <button class="tab-btn" onclick="switchTab('backup', this)">Резервная копия</button>
+  </div>
+  <section id="sec-overview" class="section active">
+    <div class="grid">
+      <div class="card"><div class="kpi-label">Отработано за месяц</div><div class="kpi-value" id="kpiHours">0 ч</div><div class="kpi-sub" id="kpiShifts">Смен: 0 · ПЗВ: 0 ч</div></div>
+      <div class="card"><div class="kpi-label">Прогноз начислений (Гросс)</div><div class="kpi-value" id="kpiGross">0 ₽</div><div class="kpi-sub" id="kpiNet">На руки: 0 ₽</div></div>
+      <div class="card"><div class="kpi-label">Контроль РТО (5 проверок)</div><div class="kpi-value" id="kpiRtoStatus">Нет данных</div><div class="kpi-sub" id="kpiRtoSub">Добавьте смены или загрузите пример</div></div>
+    </div>
+    <div class="card">
+      <h2>Карточка водителя</h2>
+      <div class="form-grid">
+        <div><label>ФИО водителя</label><input id="profName" /></div>
+        <div><label>Табельный №</label><input id="profTab" /></div>
+        <div><label>Филиал / Площадка</label><input id="profBranch" /></div>
+        <div><label>Автоколонна</label><input id="profCol" /></div>
+        <div><label>Директор филиала</label><input id="profDirector" /></div>
+        <div><label>Начальник автоколонны</label><input id="profColHead" /></div>
+        <div><label>Модель ТС / Бортовой №</label><input id="profBus" /></div>
+        <div><label>Основной маршрут</label><input id="profRoute" /></div>
+        <div><label>Базовая ставка (руб./ч)</label><input id="profRate" type="number" step="0.01" /></div>
+        <div><label>Стаж в МГТ (надбавка)</label><select id="profExp"><option value="0">До 1 года (0%)</option><option value="0.10">От 1 до 5 лет (10%)</option><option value="0.15">От 5 до 10 лет (15%)</option><option value="0.20">Свыше 10 лет (20%)</option></select></div>
+        <div><label>Рейтинг качества (баллы)</label><input id="profRating" type="number" min="0" max="100" /></div>
+        <div><label>Профсоюз (1%)</label><select id="profUnion"><option value="1">Да (1%)</option><option value="0">Нет (0%)</option></select></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" onclick="saveProfile()">Сохранить профиль</button>
+        <button class="btn btn-secondary" onclick="loadDemoShifts()">Загрузить пример смен (Ноябрь 2026)</button>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="card"><h3>Чек-лист выхода на линию (ДИ № 144 и Приказ № 1024)</h3><div id="checklistBox"></div><div class="btn-row"><button class="btn btn-secondary" onclick="resetChecklist()">Сбросить отметки</button></div></div>
+      <div class="card"><h3>Оперативные контакты и системы</h3><p style="font-size:13px;margin:0 0 8px;"><strong>Ситуационный центр:</strong> <a class="doc-link" href="tel:6500">6500</a> или <a class="doc-link" href="tel:+74959512023">8 (495) 951-20-23</a></p><p style="font-size:13px;margin:0 0 8px;"><strong>Приёмная / кадры филиала «Южный»:</strong> <a class="doc-link" href="mailto:sekretar.yug@mosgortrans.ru">sekretar.yug@mosgortrans.ru</a></p><p style="font-size:13px;margin:0 0 8px;"><strong>При себе на линии (п. 1.10 ДИ № 144):</strong> ВУ, СТС, карта тахографа, копия ОСАГО, бумажный ПЛ или ЭПЛ (динамический QR-код), расписание.</p><p style="font-size:13px;margin:0;"><strong>1-й км (п. 4.4.1, ред. № 1024):</strong> рулевое, стояночный тормоз, зарядка АКБ, спидометр, отсутствие стуков.</p></div>
+    </div>
+  </section>
+  <section id="sec-shifts" class="section">
+    <div class="card">
+      <h2>Добавить / учесть смену</h2>
+      <div class="form-grid">
+        <div><label>Дата</label><input id="shDate" type="date" /></div>
+        <div><label>Маршрут</label><input id="shRoute" placeholder="м86" oninput="autoRouteCoeff()" /></div>
+        <div><label>Категория маршрута</label><select id="shCoeff"><option value="1.0">Городской (1.0x)</option><option value="1.1">Смежный межрегион. (1.1x)</option></select></div>
+        <div><label>Условия ПЗВ / Код выхода</label><select id="shPzvType"><option value="0">1-я смена (+0%)</option><option value="1.0">2-я смена (+100%)</option><option value="0.689">400/700/800 выход (+68.9%)</option><option value="0.378">Прочие выходы (+37.8%)</option></select></div>
+        <div><label>Часы на линии</label><input id="shLine" type="number" step="0.01" value="8.0" /></div>
+        <div><label>Время управления</label><input id="shDrive" type="number" step="0.01" value="7.5" /></div>
+        <div><label>ПЗВ и медосмотр (ч)</label><input id="shPzv" type="number" step="0.01" value="0.67" /></div>
+        <div><label>Ночные часы</label><input id="shNight" type="number" step="0.01" value="0" /></div>
+        <div><label>Разрыв смены (+30%)</label><select id="shSplit"><option value="0">Нет</option><option value="1">Да</option></select></div>
+        <div><label>Выходной (+100%)</label><select id="shHoliday"><option value="0">Нет</option><option value="1">Да</option></select></div>
+        <div><label>Спецперерыв до 4 ч 30 мин</label><select id="shBreakOk"><option value="1">Да</option><option value="0">Нет</option></select></div>
+      </div>
+      <div class="btn-row"><button class="btn" onclick="addShift()">Добавить смену</button><button class="btn btn-secondary" onclick="loadDemoShifts()">Загрузить пример</button><button class="btn btn-danger" onclick="clearShifts()">Очистить</button></div>
+    </div>
+    <div class="card"><h2>5 проверок РТО</h2><div id="rtoAlerts"></div></div>
+    <div class="card"><h2>Журнал смен</h2><div class="table-wrap"><table><thead><tr><th>Дата</th><th>Маршрут</th><th>Коэф.</th><th>Выход</th><th>Линия</th><th>Упр.</th><th>ПЗВ</th><th>Ночь</th><th>Разрыв</th><th>Вых.</th><th>Начислено</th><th></th></tr></thead><tbody id="shiftsTableBody"></tbody></table></div></div>
+  </section>
+  <section id="sec-salary" class="section">
+    <div class="card">
+      <h2>Расчёт оплаты труда (Приказ № 1232)</h2>
+      <div class="form-grid">
+        <div><label>Доплата ОБК (руб./ч линии)</label><input id="extraObk" type="number" step="0.01" value="0" onchange="recalcAll()" /></div>
+        <div><label>Доплата в центре города (руб.)</label><input id="extraCenter" type="number" step="0.01" value="0" onchange="recalcAll()" /></div>
+        <div><label>Премия за тахограф (руб.)</label><input id="extraTacho" type="number" step="0.01" value="1500" onchange="recalcAll()" /></div>
+        <div><label>Премия за медосмотры (руб.)</label><input id="extraMed" type="number" step="0.01" value="6000" onchange="recalcAll()" /></div>
+        <div><label>Компенсация связи (руб.)</label><input id="extraMob" type="number" step="0.01" value="350" onchange="recalcAll()" /></div>
+        <div><label>Сверхурочные 100% (часы)</label><input id="extraOvertime" type="number" step="0.01" value="0" onchange="recalcAll()" /></div>
+      </div>
+    </div>
+    <div class="card"><h2>Детализация расчётного листка</h2><div class="table-wrap"><table><thead><tr><th>Статья</th><th>База</th><th>Сумма (₽)</th></tr></thead><tbody id="salaryBody"></tbody></table></div></div>
+  </section>
+  <section id="sec-docs" class="section">
+    <div class="card">
+      <h2>База приказов и инструкций (ред. 06.11.2026)</h2>
+      <div class="form-grid" style="margin-bottom:10px;">
+        <div><label>Поиск</label><input id="docSearch" placeholder="1254, рейтинг, ПЗВ, ДТП..." oninput="renderDocs()" /></div>
+        <div><label>Тема</label><select id="docTopic" onchange="renderDocs()"><option value="">Все темы</option><option value="Рабочее время">Рабочее время</option><option value="Должностные обязанности">Должностные обязанности</option><option value="Оплата труда">Оплата труда</option><option value="Рейтинг и дисциплина">Рейтинг и дисциплина</option><option value="Охрана труда">Охрана труда</option><option value="Социальные выплаты">Социальные выплаты</option><option value="Права работников">Права работников</option><option value="Информационные системы">Информационные системы</option><option value="Протокол">Протокол</option></select></div>
+        <div><label>Приоритет</label><select id="docPrio" onchange="renderDocs()"><option value="">Любой</option><option value="Критический">Критический</option><option value="Высокий">Высокий</option><option value="Средний">Средний</option><option value="Низкий">Низкий</option></select></div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>№</th><th>Дата</th><th>Документ</th><th>Тема</th><th>Приоритет</th><th>Примечание</th><th>Файл</th></tr></thead><tbody id="docsBody"></tbody></table></div>
+    </div>
+  </section>
+  <section id="sec-forms" class="section">
+    <div class="card">
+      <h2>Конструктор объяснительных и заявлений</h2>
+      <div class="form-grid">
+        <div><label>Шаблон</label><select id="tplType" onchange="buildTemplate()"><option value="explain">Объяснительная по рапорту / штрафу ГИБДД</option><option value="request2027">Запрос документов 2027 (ст. 62 ТК РФ + № 1254)</option><option value="tacho">Заявление на компенсацию карты тахографа (№ 19)</option></select></div>
+        <div><label>Дата</label><input id="tplDate" type="date" onchange="buildTemplate()" /></div>
+        <div><label>№ рапорта / постановления</label><input id="tplRaport" placeholder="000844823 от 02.10.2026" oninput="buildTemplate()" /></div>
+        <div><label>Пояснение / видеоматериал</label><input id="tplNote" placeholder="Просмотрено с автобуса № 160294; с рапортом не согласен" oninput="buildTemplate()" /></div>
+      </div>
+      <div style="margin-top:10px;"><label>Готовый текст</label><textarea id="tplOutput"></textarea></div>
+      <div class="btn-row"><button class="btn" onclick="copyTemplate()">Копировать</button><button class="btn btn-secondary" onclick="downloadTemplateTxt()">Скачать .txt</button><button class="btn btn-secondary" onclick="window.print()">Печать / PDF</button></div>
+    </div>
+  </section>
+  <section id="sec-backup" class="section">
+    <div class="card">
+      <h2>Резервная копия (JSON)</h2>
+      <p style="font-size:13px;color:var(--muted);">Данные сохраняются локально в браузере (<code>localStorage</code>).</p>
+      <div class="btn-row"><button class="btn" onclick="exportJson()">Скачать JSON-копию</button><label class="btn btn-secondary" style="display:inline-block;margin:0;cursor:pointer;">Загрузить JSON<input type="file" accept=".json" style="display:none;" onchange="importJson(event)" /></label></div>
+    </div>
+  </section>
+</main>
+<nav class="bottom-nav no-print">
+  <button class="active" onclick="switchTab('overview', this)"><span>🏠</span><span>Обзор</span></button>
+  <button onclick="switchTab('shifts', this)"><span>🚌</span><span>Смены</span></button>
+  <button onclick="switchTab('salary', this)"><span>💰</span><span>Зарплата</span></button>
+  <button onclick="switchTab('docs', this)"><span>📚</span><span>Приказы</span></button>
+  <button onclick="switchTab('forms', this)"><span>📝</span><span>Бланки</span></button>
+</nav>
+<script>
+const INTERREGIONAL_ROUTES = new Set(["400","483","1062","1098","1199","1273","1279","1282","1288","1294","1302","1303","1350","1438","1461","1465","1469","1480","1484","1502","1540","1541","1542","1545","1549","1549а","1567","1568","1572","1580","1696","1699","1892","э-27"]);
+const DOCS_DATA = [
+  {num:"1254",date:"03.11.2026",title:"Режимы рабочего времени и графики сменности на 2027 год",topic:"Рабочее время",prio:"Критический",note:"Учётный период — месяц; ознакомление до 01.12.2026",url:"https://drive.google.com/file/d/1jKdfnLBKWx4sL1LbQelsWvQUjfOT6dzs/view"},
+  {num:"1232",date:"29.10.2026",title:"Повышающий коэффициент 1,1 на смежных межрегиональных маршрутах",topic:"Оплата труда",prio:"Высокий",note:"Действует с 01.10.2026 по 31.12.2026",url:"https://drive.google.com/file/d/1WLPDA3yVgATLemJIipZkn0n8XFH76p53/view"},
+  {num:"1226",date:"28.10.2026",title:"Правила посещения спортивного комплекса «Московский транспорт»",topic:"Социальные выплаты",prio:"Низкий",note:"Социальный сервис",url:"https://drive.google.com/file/d/1QjmLhfqgr5DjwWQw-N37sxIlChF4cPQx/view"},
+  {num:"1222",date:"27.10.2026",title:"Изменения порядка выплаты материальной помощи (к приказу № 219)",topic:"Социальные выплаты",prio:"Средний",note:"Обновление порядка матпомощи",url:"https://drive.google.com/file/d/1g6EYQY400tuvPf-S7mrBpZeezYokSXa8/view"},
+  {num:"1203",date:"22.10.2026",title:"Премирование работников при награждении и поощрении",topic:"Оплата труда",prio:"Высокий",note:"Отменяет № 1493 и № 805",url:"https://drive.google.com/file/d/1doxriWU86h3NiJVvXPHdzC-328Q_fihA/view"},
+  {num:"1115",date:"02.10.2026",title:"Изменения положения об управлении кадровым резервом",topic:"Права работников",prio:"Низкий",note:"К приказу № 1475",url:"https://drive.google.com/file/d/1y4mlonwaCvVvmczxpkaj_3AbW0FvgPkB/view"},
+  {num:"1066",date:"22.09.2026",title:"Служебные удостоверения и запись услуги «Единый» на 365 дней",topic:"Социальные выплаты",prio:"Средний",note:"Карта «Тройка» / Единый",url:"https://drive.google.com/file/d/1ZMyf6e1Bj7JJLhYT8HuOIjjVsuflfX1n/view"},
+  {num:"1064",date:"22.09.2026",title:"Вывод из эксплуатации информационных систем, включая предсменные осмотры",topic:"Информационные системы",prio:"Высокий",note:"Доступность исторических данных осмотров",url:"https://drive.google.com/file/d/1jsdZA473Ve27pJd8tjpf__HcsYAl5i1M/view"},
+  {num:"1053",date:"19.09.2026",title:"Рейтинг водителей автобусов РГПМ: новая редакция показателей",topic:"Рейтинг и дисциплина",prio:"Критический",note:"Изменения с 01.10.2026",url:"https://drive.google.com/file/d/11LyjSctClomCS1EL9Ug8Fs0pfB-WPFGz/view"},
+  {num:"1046",date:"19.09.2026",title:"Матрица приема, рассмотрения и исполнения заявлений работников",topic:"Права работников",prio:"Высокий",note:"Сроки рассмотрения заявлений",url:"https://drive.google.com/file/d/1lrtMwt5rfT3qbBSCalPydnG6bcaNKHvg/view"},
+  {num:"1038",date:"19.09.2026",title:"Изменения должностной инструкции водителя (№ 144, № 399)",topic:"Должностные обязанности",prio:"Критический",note:"Ограничения отвлечения при управлении",url:"https://drive.google.com/file/d/1IOC-LqEDBEuBS6rsSeXbkG5xVKlkV5jr/view"},
+  {num:"1025",date:"15.09.2026",title:"Положение об обучении по охране труда и проверке знаний",topic:"Охрана труда",prio:"Высокий",note:"Регламент обучения",url:"https://drive.google.com/file/d/14QqS57g8n_kIiJm1HXrlSEba2xxC4LRX/view"},
+  {num:"1024",date:"15.09.2026",title:"Изменение инструкции водителя и регламента при ДТП, нештатных ситуациях",topic:"Должностные обязанности",prio:"Критический",note:"Кнопка ТРЕВОГА, 6500, 1-й км",url:"https://drive.google.com/file/d/1a6wvr2SxwAy-GW6Ic-z52pXkURPz-LoL/view"},
+  {num:"99-08-П-5",date:"14.09.2026",title:"Протокол встречи с коллективами площадок Нагатино и Андропова",topic:"Протокол",prio:"Высокий",note:"Мойка, ремонт, спецподача, график и ГКУ",url:"https://drive.google.com/file/d/11qnc5_x54p7JwIX_wVUQdQ_wB45fes-t/view"},
+  {num:"921",date:"24.08.2026",title:"Система мер поощрений и наград предприятия",topic:"Социальные выплаты",prio:"Средний",note:"Награды и звания",url:"https://drive.google.com/file/d/1gHlu4aishu9g5mZ4-INxqAEo1gadULc1/view"},
+  {num:"99-03-19",date:"22.07.2026",title:"Опытная эксплуатация закупочного функционала в 1С:ERP",topic:"Информационные системы",prio:"Низкий",note:"Внутреннее указание",url:"https://drive.google.com/file/d/140crHwosETeakoAl2Qkgt8kYOmdyxSO5/view"},
+  {num:"760",date:"13.07.2026",title:"Матрица оповещения об инцидентах в информационных системах",topic:"Информационные системы",prio:"Низкий",note:"Эскалация сбоев ИТ",url:"https://drive.google.com/file/d/10R2pI4qjKrWMysZWwpRSsNWB3eEsETbG/view"},
+  {num:"697",date:"01.07.2026",title:"Повышающий коэффициент 1,1 на маршрутах проекта «Москва — область»",topic:"Оплата труда",prio:"Высокий",note:"01.07–31.12.2026",url:"https://drive.google.com/file/d/1A5xqNlYMzwHR0BY2jMyWGwRQxEYxMMqR/view"},
+  {num:"645",date:"23.06.2026",title:"Материальная помощь к ежегодному отпуску работникам филиалов",topic:"Социальные выплаты",prio:"Высокий",note:"Выплата к отпуску",url:"https://drive.google.com/file/d/1Gd-rG_4cYB_YdEdJxbh8nBRH8FYw7XaJ/view"},
+  {num:"623",date:"17.06.2026",title:"Регламент работы с задачами системы контроля качества Incontrol v.2",topic:"Рейтинг и дисциплина",prio:"Средний",note:"Контроль качества",url:"https://drive.google.com/file/d/17VK8hNaiLuSnBphAuC9N60V6kpa30Ywd/view"},
+  {num:"557",date:"30.05.2026",title:"Регламент оказания психологической помощи работникам",topic:"Социальные выплаты",prio:"Средний",note:"Поддержка после нештатных ситуаций",url:"https://drive.google.com/file/d/1JypPYq2wxgMYYzGMbx-sT2CEeFDphIQp/view"},
+  {num:"494",date:"15.05.2026",title:"Вывод из эксплуатации корпоративного портала",topic:"Информационные системы",prio:"Средний",note:"Переход на новые сервисы",url:"https://drive.google.com/file/d/1yS8xauGtNX8dYIu_t7oHfW87eFAvsLOZ/view"},
+  {num:"482",date:"07.05.2026",title:"Политика обработки и защиты персональных данных работников",topic:"Права работников",prio:"Высокий",note:"Защита ПДн",url:"https://drive.google.com/file/d/1Bj9fIOLYrLkTrj5GAEjDcWZn_nekeJIG/view"},
+  {num:"423",date:"23.04.2026",title:"Изменение политики информационной безопасности и парольной защиты",topic:"Информационные системы",prio:"Низкий",note:"Пароли и доступ",url:"https://drive.google.com/file/d/1x0bTDm3H5tfyIHzGk4unb2e8Sf5Fr9mA/view"},
+  {num:"219",date:"26.02.2026",title:"Положение и комиссия по выплате материальной помощи работникам",topic:"Социальные выплаты",prio:"Высокий",note:"Базовое положение (с изм. № 1222)",url:"https://drive.google.com/file/d/18UhdirPCDFpCtPzPY0vynDUTxoTy50J7/view"},
+  {num:"150",date:"11.02.2026",title:"Изменение рейтинга водителей РГПМ — предыдущая редакция",topic:"Рейтинг и дисциплина",prio:"Средний",note:"С 01.05.2026",url:"https://drive.google.com/file/d/110OG8V15BEwCK_ww2oi6YFsyNUClgfs5/view"},
+  {num:"45",date:"20.01.2026",title:"Дополнение инструкции водителя о считывании карт тахографа",topic:"Должностные обязанности",prio:"Критический",note:"Пункт 4.13.7 к ДИ № 144",url:"https://drive.google.com/file/d/1rRHk7YDYB8hI_ml_cG4NDJv6ykzHZ9cG/view"},
+  {num:"19",date:"15.01.2026",title:"Компенсация затрат на карту водителя для тахографа",topic:"Социальные выплаты",prio:"Высокий",note:"До 5000 руб.",url:"https://drive.google.com/file/d/1RtJo2cl_QtyOzraXP8gdIkZT638rh7Ym/view"},
+  {num:"1280",date:"22.11.2025",title:"План-график обучения по охране труда водителей на 2025–2026 годы",topic:"Охрана труда",prio:"Средний",note:"График инструктажей",url:"https://drive.google.com/file/d/17QTCNUttc9aLl_bSoY67gy_9GR7DE8Qy/view"},
+  {num:"896",date:"04.09.2025",title:"Регламент использования работниками городского велопроката",topic:"Социальные выплаты",prio:"Низкий",note:"Льгота работника",url:"https://drive.google.com/file/d/145EgWAhMbpGAV39T03nRxqhblBQIDzU1/view"},
+  {num:"189",date:"14.03.2025",title:"Выплата за привлечение добровольцев на контрактную службу",topic:"Социальные выплаты",prio:"Низкий",note:"Единовременная выплата",url:"https://drive.google.com/file/d/1kyo0o2tJSx1JVomaycmC1PrMD1RHJIh3/view"},
+  {num:"467",date:"25.05.2024",title:"Изменения в приказ № 1263 «Об оплате труда работников» (скан)",topic:"Оплата труда",prio:"Высокий",note:"8 стр. скана",url:"https://drive.google.com/file/d/1qZ9ZFt2xAHKnN0e0k2X5so3F7eZ-YS0n/view"},
+  {num:"144",date:"02.03.2024",title:"Должностная инструкция водителя автобуса РГПМ (полный текст)",topic:"Должностные обязанности",prio:"Критический",note:"Читать совместно с № 45, № 1024, № 1038",url:"https://drive.google.com/file/d/1iAaXJAgptXUdwn-gf9VXQhczO1HVu_fK/view"}
+];
+const CHECKLIST_ITEMS = [
+  "Пройден предрейсовый медосмотр и отметка в ЭПЛ / путевом листе",
+  "При себе: ВУ кат. D/DE, СТС, карта тахографа, полис ОСАГО, расписание",
+  "Считана карта тахографа (п. 4.13.7, Приказ № 45)",
+  "Проверка на 1-м км: руль, стояночный тормоз, зарядка АКБ, спидометр, нет стуков",
+  "Проверены валидаторы (УКПБ), медиапанель, кнопка «ТРЕВОГА» и ОМФСВ"
+];
+const DEFAULT_STATE = {
+  profile: { name: "Макеев Николай Петрович", tab: "16026562", branch: "Филиал «Южный» ГУП «Мосгортранс»", col: "Автоколонна № 2", director: "Р. В. Тимонин", colHead: "Р. И. Ахмедов", bus: "ЛиАЗ-621365 · борт № 160294 (РК11877)", route: "м86", rate: 502.08, exp: 0.10, rating: 100, union: 1 },
+  shifts: [], checklist: [false, false, false, false, false]
+};
+let state = loadState();
+function loadState() { try { const raw = localStorage.getItem("mgt_driver_state_v2"); return raw ? { ...JSON.parse(JSON.stringify(DEFAULT_STATE)), ...JSON.parse(raw) } : JSON.parse(JSON.stringify(DEFAULT_STATE)); } catch (e) { return JSON.parse(JSON.stringify(DEFAULT_STATE)); } }
+function persist() { localStorage.setItem("mgt_driver_state_v2", JSON.stringify(state)); }
+function switchTab(name, btn) {
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.getElementById("sec-" + name).classList.add("active");
+  document.querySelectorAll(".tab-btn, .bottom-nav button").forEach(b => b.classList.remove("active"));
+  const idxMap = { overview: 0, shifts: 1, salary: 2, docs: 3, forms: 4, backup: 5 };
+  document.querySelectorAll(".tab-btn")[idxMap[name]]?.classList.add("active");
+  document.querySelectorAll(".bottom-nav button")[idxMap[name]]?.classList.add("active");
+}
+function initProfileUI() {
+  const p = state.profile;
+  document.getElementById("profName").value = p.name; document.getElementById("profTab").value = p.tab;
+  document.getElementById("profBranch").value = p.branch; document.getElementById("profCol").value = p.col;
+  document.getElementById("profDirector").value = p.director; document.getElementById("profColHead").value = p.colHead;
+  document.getElementById("profBus").value = p.bus; document.getElementById("profRoute").value = p.route;
+  document.getElementById("profRate").value = p.rate; document.getElementById("profExp").value = String(p.exp);
+  document.getElementById("profRating").value = p.rating; document.getElementById("profUnion").value = String(p.union);
+  document.getElementById("headerSubtitle").textContent = `${p.name} · Таб. № ${p.tab} · ${p.col}`;
+}
+function saveProfile() {
+  state.profile = { name: document.getElementById("profName").value.trim(), tab: document.getElementById("profTab").value.trim(), branch: document.getElementById("profBranch").value.trim(), col: document.getElementById("profCol").value.trim(), director: document.getElementById("profDirector").value.trim(), colHead: document.getElementById("profColHead").value.trim(), bus: document.getElementById("profBus").value.trim(), route: document.getElementById("profRoute").value.trim(), rate: parseFloat(document.getElementById("profRate").value) || 502.08, exp: parseFloat(document.getElementById("profExp").value) || 0, rating: parseFloat(document.getElementById("profRating").value) || 0, union: parseInt(document.getElementById("profUnion").value, 10) || 0 };
+  persist(); initProfileUI(); recalcAll(); buildTemplate(); alert("Профиль сохранён");
+}
+function autoRouteCoeff() { const r = document.getElementById("shRoute").value.trim().toLowerCase(); document.getElementById("shCoeff").value = INTERREGIONAL_ROUTES.has(r) ? "1.1" : "1.0"; }
+function calcShiftPay(sh) {
+  const rate = state.profile.rate * sh.coeff;
+  const ratingFactor = (state.profile.rating >= 0 ? Math.min(state.profile.rating, 100) / 100 : 1);
+  const basePay = sh.line * rate, prem = basePay * 0.12 * ratingFactor, harm = basePay * 0.04, night = sh.night * rate * 0.40, split = sh.split ? basePay * 0.30 : 0, holiday = sh.holiday ? basePay * 1.0 : 0, pzvBase = sh.pzv * rate * (1 + sh.pzvType), expPay = sh.line * rate * state.profile.exp;
+  return { basePay, prem, harm, night, split, holiday, pzvBase, expPay, total: basePay + prem + harm + night + split + holiday + pzvBase + expPay };
+}
+function addShift() {
+  const date = document.getElementById("shDate").value; if (!date) { alert("Укажите дату"); return; }
+  state.shifts.push({ id: Date.now(), date, route: document.getElementById("shRoute").value.trim() || "—", coeff: parseFloat(document.getElementById("shCoeff").value), pzvType: parseFloat(document.getElementById("shPzvType").value), line: parseFloat(document.getElementById("shLine").value) || 0, drive: parseFloat(document.getElementById("shDrive").value) || 0, pzv: parseFloat(document.getElementById("shPzv").value) || 0, night: parseFloat(document.getElementById("shNight").value) || 0, split: document.getElementById("shSplit").value === "1", holiday: document.getElementById("shHoliday").value === "1", breakOk: document.getElementById("shBreakOk").value === "1" });
+  state.shifts.sort((a,b) => a.date.localeCompare(b.date)); persist(); recalcAll();
+}
+function deleteShift(id) { state.shifts = state.shifts.filter(s => s.id !== id); persist(); recalcAll(); }
+function clearShifts() { if (!confirm("Удалить все смены?")) return; state.shifts = []; persist(); recalcAll(); }
+function loadDemoShifts() {
+  const demo = [["2026-11-01","400",1.1,0,8,7.5,0.67,0,false,true,true],["2026-11-02","1098",1.1,1.0,7.5,7.0,0.67,2.5,false,false,true],["2026-11-03","1288",1.1,0.689,8.5,8.0,0.67,0,true,false,true],["2026-11-04","1545",1.1,0,8,7.5,0.67,0,false,true,true],["2026-11-05","1303",1.1,0,7.5,7.0,0.67,0,false,false,true],["2026-11-06","м3",1.0,0,8,7.5,0.67,0,false,false,true],["2026-11-09","1502",1.1,1.0,7.5,7.0,0.67,3.0,false,false,true],["2026-11-10","1484",1.1,0.689,8,7.5,0.67,0,true,false,true],["2026-11-11","с984",1.0,0,7.5,7.0,0.67,0,false,false,true],["2026-11-12","1568",1.1,0,8,7.5,0.67,0,false,false,true],["2026-11-13","1465",1.1,1.0,8,7.5,0.67,2.0,false,false,true]];
+  state.shifts = demo.map((d, i) => ({ id: Date.now() + i, date: d[0], route: d[1], coeff: d[2], pzvType: d[3], line: d[4], drive: d[5], pzv: d[6], night: d[7], split: d[8], holiday: d[9], breakOk: d[10] }));
+  persist(); recalcAll();
+}
+function getIsoWeekKey(dateStr) { const d = new Date(dateStr + "T12:00:00"), day = (d.getDay() + 6) % 7; d.setDate(d.getDate() - day + 3); const f = new Date(d.getFullYear(), 0, 4); return d.getFullYear() + "-W" + String(1 + Math.round(((d - f) / 86400000 - 3 + ((f.getDay() + 6) % 7)) / 7)).padStart(2, "0"); }
+function runRtoChecks() {
+  const alerts = []; if (!state.shifts.length) return { status: "Нет данных", level: "low", alerts: ['<div class="alert">Добавьте смены для проверки РТО.</div>'] };
+  const over12 = state.shifts.filter(s => (s.line + s.pzv) > 12); if (over12.length) alerts.push(`<div class="alert alert-warn"><strong>1. Смена &gt; 12 ч:</strong> ${over12.length} смен(ы).</div>`);
+  const noBreak = state.shifts.filter(s => s.drive > 4.5 && !s.breakOk); if (noBreak.length) alerts.push(`<div class="alert alert-warn"><strong>2. Спецперерыв до 4 ч 30 мин:</strong> не отмечен у ${noBreak.length} смен(ы).</div>`);
+  const byWeek = {}; state.shifts.forEach(s => { const wk = getIsoWeekKey(s.date); byWeek[wk] = (byWeek[wk] || 0) + s.drive; });
+  Object.entries(byWeek).forEach(([wk, hrs]) => { if (hrs > 56) alerts.push(`<div class="alert alert-danger"><strong>3. Лимит 56 ч/нед (${wk}):</strong> ${hrs.toFixed(1)} ч.</div>`); });
+  const weeks = Object.keys(byWeek).sort(); for (let i = 0; i < weeks.length - 1; i++) { const sum2 = byWeek[weeks[i]] + byWeek[weeks[i+1]]; if (sum2 > 90) alerts.push(`<div class="alert alert-danger"><strong>4. Лимит 90 ч за 2 нед:</strong> ${sum2.toFixed(1)} ч.</div>`); }
+  let streak = 1; for (let i = 1; i < state.shifts.length; i++) { const diff = (new Date(state.shifts[i].date) - new Date(state.shifts[i-1].date)) / 86400000; if (diff === 1) { streak++; if (streak >= 7) alerts.push(`<div class="alert alert-danger"><strong>5. Отдых 45 ч:</strong> 7 смен подряд к ${state.shifts[i].date}.</div>`); } else streak = 1; }
+  if (!alerts.length) return { status: "Нарушений нет", level: "ok", alerts: ['<div class="alert alert-ok">Все 5 проверок РТО пройдены успешно.</div>'] };
+  const hasDanger = alerts.some(a => a.includes("alert-danger"));
+  return { status: hasDanger ? "Есть нарушения" : "Нужна проверка", level: hasDanger ? "bad" : "warn", alerts };
+}
+function recalcAll() {
+  let totLine = 0, totPzv = 0, sumBase = 0, sumPrem = 0, sumHarm = 0, sumNight = 0, sumSplit = 0, sumHol = 0, sumPzv = 0, sumExp = 0;
+  const tbody = document.getElementById("shiftsTableBody"); tbody.innerHTML = "";
+  state.shifts.forEach(s => {
+    const pay = calcShiftPay(s); totLine += s.line; totPzv += s.pzv;
+    sumBase += pay.basePay; sumPrem += pay.prem; sumHarm += pay.harm; sumNight += pay.night; sumSplit += pay.split; sumHol += pay.holiday; sumPzv += pay.pzvBase; sumExp += pay.expPay;
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${s.date}</td><td><strong>${s.route}</strong></td><td>${s.coeff}x</td><td>${s.pzvType === 0 ? "1-я" : s.pzvType === 1 ? "2-я" : s.pzvType === 0.689 ? "400/700/800" : "Прочие"}</td><td>${s.line}</td><td>${s.drive}</td><td>${s.pzv}</td><td>${s.night}</td><td>${s.split ? "Да" : "Нет"}</td><td>${s.holiday ? "Да" : "Нет"}</td><td><strong>${pay.total.toFixed(2)} ₽</strong></td><td><button class="btn btn-danger" style="padding:4px 8px;" onclick="deleteShift(${s.id})">✕</button></td>`;
+    tbody.appendChild(tr);
+  });
+  const exObk = (parseFloat(document.getElementById("extraObk").value) || 0) * totLine, exCenter = parseFloat(document.getElementById("extraCenter").value) || 0, exTacho = parseFloat(document.getElementById("extraTacho").value) || 0, exMed = parseFloat(document.getElementById("extraMed").value) || 0, exMob = parseFloat(document.getElementById("extraMob").value) || 0, exOt = (parseFloat(document.getElementById("extraOvertime").value) || 0) * state.profile.rate;
+  const gross = sumBase + sumPrem + sumHarm + sumNight + sumSplit + sumHol + sumPzv + sumExp + exObk + exCenter + exTacho + exMed + exMob + exOt;
+  const ndfl = gross * 0.13, union = state.profile.union ? gross * 0.01 : 0, net = gross - ndfl - union;
+  document.getElementById("kpiHours").textContent = `${(totLine + totPzv).toFixed(1)} ч`;
+  document.getElementById("kpiShifts").textContent = `Смен: ${state.shifts.length} · Линия: ${totLine.toFixed(1)} ч · ПЗВ: ${totPzv.toFixed(1)} ч`;
+  document.getElementById("kpiGross").textContent = `${gross.toLocaleString("ru-RU", {maximumFractionDigits:2})} ₽`;
+  document.getElementById("kpiNet").textContent = `На руки: ${net.toLocaleString("ru-RU", {maximumFractionDigits:2})} ₽`;
+  const rto = runRtoChecks(), rtoEl = document.getElementById("kpiRtoStatus");
+  rtoEl.textContent = rto.status; rtoEl.className = "kpi-value " + (rto.level === "ok" ? "kpi-ok" : rto.level === "warn" ? "kpi-warn" : rto.level === "bad" ? "kpi-bad" : "");
+  document.getElementById("kpiRtoSub").textContent = `Проверено смен: ${state.shifts.length}`;
+  document.getElementById("rtoAlerts").innerHTML = rto.alerts.join("");
+  const rows = [["Оплата по тарифу",`${totLine.toFixed(2)} ч`,sumBase],["Премия (12% × рейтинг)",`${state.profile.rating}%`,sumPrem],["Вредные условия (4%)","4%",sumHarm],["Ночные (40%)","22:00–06:00",sumNight],["Разделение смены (30%)","30%",sumSplit],["Выходные (100%)","100%",sumHol],["ПЗВ и медосмотр",`${totPzv.toFixed(2)} ч`,sumPzv],["Стаж",`${(state.profile.exp*100).toFixed(0)}%`,sumExp],["ОБК / Центр / Премии / Связь","Дополнительно",exObk+exCenter+exTacho+exMed+exMob+exOt],["ИТОГО НАЧИСЛЕНО (ГРОСС)","",gross],["НДФЛ (13%)","−13%",-ndfl],["Профсоюз",state.profile.union?"−1%":"0%",-union],["К ВЫПЛАТЕ («НА РУКИ»)","",net]];
+  document.getElementById("salaryBody").innerHTML = rows.map(r => `<tr style="${r[0].startsWith('ИТОГО') || r[0].startsWith('К ВЫПЛАТЕ') ? 'background:#eef3f9;font-weight:700;' : ''}"><td>${r[0]}</td><td>${r[1]}</td><td>${r[2].toLocaleString("ru-RU",{minimumFractionDigits:2,maximumFractionDigits:2})} ₽</td></tr>`).join("");
+}
+function renderDocs() {
+  const q = document.getElementById("docSearch").value.trim().toLowerCase(), topic = document.getElementById("docTopic").value, prio = document.getElementById("docPrio").value;
+  const prioClass = { "Критический":"b-crit", "Высокий":"b-high", "Средний":"b-med", "Низкий":"b-low" };
+  document.getElementById("docsBody").innerHTML = DOCS_DATA.filter(d => (!q || d.num.toLowerCase().includes(q) || d.title.toLowerCase().includes(q) || d.note.toLowerCase().includes(q)) && (!topic || d.topic === topic) && (!prio || d.prio === prio)).map(d => `<tr><td><strong>${d.num}</strong></td><td>${d.date}</td><td>${d.title}</td><td>${d.topic}</td><td><span class="badge ${prioClass[d.prio]}">${d.prio}</span></td><td>${d.note}</td><td><a class="doc-link" href="${d.url}" target="_blank" rel="noopener">Открыть</a></td></tr>`).join("");
+}
+function renderChecklist() { document.getElementById("checklistBox").innerHTML = CHECKLIST_ITEMS.map((text, idx) => `<label class="checklist-item"><input type="checkbox" ${state.checklist[idx] ? "checked" : ""} onchange="toggleCheck(${idx}, this.checked)" /><span>${text}</span></label>`).join(""); }
+function toggleCheck(idx, val) { state.checklist[idx] = val; persist(); }
+function resetChecklist() { state.checklist = CHECKLIST_ITEMS.map(() => false); persist(); renderChecklist(); }
+function buildTemplate() {
+  const t = document.getElementById("tplType").value, d = document.getElementById("tplDate").value || new Date().toISOString().slice(0,10), rap = document.getElementById("tplRaport").value.trim() || "№ _________", note = document.getElementById("tplNote").value.trim() || "Видеоматериал просмотрен; с рапортом не согласен", p = state.profile;
+  document.getElementById("tplOutput").value = t === "explain" ? `Директору ${p.branch} ${p.director}\nОт водителя ${p.col} ${p.name}, Таб. № ${p.tab}\n\nОБЪЯСНИТЕЛЬНАЯ\n\n${d} я работал(а) на автобусе (${p.bus}) по маршруту № ${p.route}.\nПо существу обращения / рапорта ${rap} поясняю следующее:\n${note}.\n\nДата: ${d}\nПодпись: ____________ / ${p.name}` : t === "request2027" ? `Руководству ${p.branch}\nОт водителя ${p.col} ${p.name}, Таб. № ${p.tab}\n\nЗАЯВЛЕНИЕ О ПРЕДОСТАВЛЕНИИ ДОКУМЕНТОВ (ст. 62 ТК РФ)\n\nПрошу предоставить для проверки режима рабочего времени и графика сменности на 2027 год (Приказ № 1254 от 03.11.2026):\n1. Код режима, трудовой договор, доп. соглашения.\n2. Именной график на 2027 год и дату доведения.\n3. Маршрутные расписания, табели, путевые листы, ГЛОНАСС, медосмотры.\n4. ПВТР, Коллективный договор и документы об оплате труда на 2027 год.\n\nДата: ${d}\nПодпись: ____________ / ${p.name}` : `Директору ${p.branch} ${p.director}\nОт водителя ${p.col} ${p.name}, Таб. № ${p.tab}\n\nЗАЯВЛЕНИЕ\n\nНа основании Приказа № 19 от 15.01.2026 прошу компенсировать затраты на карту водителя для тахографа (до 5 000 руб.).\n\nДата: ${d}\nПодпись: ____________ / ${p.name}`;
+}
+function copyTemplate() { const el = document.getElementById("tplOutput"); el.select(); navigator.clipboard?.writeText(el.value); alert("Скопировано"); }
+function downloadTemplateTxt() { const blob = new Blob([document.getElementById("tplOutput").value], { type: "text/plain;charset=utf-8" }); const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "mosgortrans_document.txt"; a.click(); }
+function exportJson() { const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json;charset=utf-8" }); const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `mosgortrans_backup_${new Date().toISOString().slice(0,10)}.json`; a.click(); }
+function importJson(ev) { const file = ev.target.files[0]; if (!file) return; const r = new FileReader(); r.onload = () => { try { state = JSON.parse(r.result); persist(); initProfileUI(); renderChecklist(); recalcAll(); buildTemplate(); alert("Восстановлено"); } catch (e) { alert("Ошибка JSON"); } }; r.readAsText(file); }
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+initProfileUI(); renderChecklist(); renderDocs(); recalcAll(); buildTemplate();
+</script>
+</body>
+</html>
